@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "birthdaysay"
-version = "0.1.0"
+version = "0.1.0-beta"
 description = ""
 authors = ["Simon <gevhaz@tutanota.com>"]
 
