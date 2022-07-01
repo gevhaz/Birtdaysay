@@ -41,4 +41,4 @@ Use Birthdaysay by running it and providing a path to the vCard file, e.g:
 
 It will show birthdays coming up within a week from when you've run it. For this
 to be useful, you have to set up a way to run it regularly, e.g. with cron,
-acron or systemd.
+anacron or systemd.
