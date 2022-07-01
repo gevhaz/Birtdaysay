@@ -7,6 +7,7 @@ authors = ["Simon <gevhaz@tutanota.com>"]
 [tool.poetry.dependencies]
 python = "^3.10"
 vobject = "^0.9.6"
+PyGObject = "^3.42.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
