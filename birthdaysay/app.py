@@ -52,10 +52,10 @@ def get_contacts(contacts_file: str) -> list[Person]:
             name = name.strip().replace("  ", " ")
             name = name.replace("\u3000", " ")  # This character showed up in a contact
             birthday = birthday.strip().replace("  ", " ")
-            parsed_birtday = datetime.strptime(birthday, "%Y%m%d").date()
+            parsed_birthday = datetime.strptime(birthday, "%Y%m%d").date()
 
             if birthday is not None:
-                all_contacts.append({"name": name, "birthday": parsed_birtday})
+                all_contacts.append({"name": name, "birthday": parsed_birthday})
 
             contact = next(contact_components, None)
     except ParseError as e:
@@ -72,14 +72,27 @@ def main() -> int:
 
     contacts = get_contacts(args.contacts_file)
 
+    birthdays = {}
+
     for c in contacts:
         next_birthday = date(date.today().year, c["birthday"].month, c["birthday"].day)
+
         if next_birthday < date.today():
             next_birthday = next_birthday.replace(year=date.today().year + 1)
 
-        if next_birthday == date.today():
+        print_birthday = date.strftime(next_birthday, "%B %d")
+
+        if args.all:
+            days_to_next = (next_birthday - date.today()).days
+            birthdays[days_to_next] = {
+                "name": c["name"],
+                "birthday": print_birthday,
+                "days_until": days_to_next,
+            }
+
+        elif next_birthday == date.today():
             notification = Notify.Notification.new(
-                f"It's {c['name']}'s birtday today!",
+                f"It's {c['name']}'s birthday today!",
             )
             notification.set_urgency(Notify.Urgency.CRITICAL)
             notification.show()
@@ -91,11 +104,15 @@ def main() -> int:
             notification.show()
 
         elif (next_birthday - date.today()).days in [6, 7]:
-            print_birtday = date.strftime(next_birthday, "%B %d")
             notification = Notify.Notification.new(
-                f"It's {c['name']}'s birthday on {print_birtday}"
+                f"It's {c['name']}'s birthday on {print_birthday}"
             )
             notification.show()
+
+    if args.all:
+        birthdays = {key: birthdays[key] for key in sorted(birthdays.keys())}
+        for p in birthdays.values():
+            print(f"In {p['days_until']} days, {p['birthday']}: {p['name']}")
 
     return 0
 
