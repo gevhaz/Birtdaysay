@@ -2,6 +2,11 @@ import sys
 from datetime import date, datetime
 from typing import TypedDict
 
+import gi
+
+gi.require_version("Notify", "0.7")
+
+from gi.repository import Notify
 from vobject.base import ParseError, readComponents
 
 from birthdaysay.cli import Cli
@@ -63,6 +68,7 @@ def get_contacts(contacts_file: str) -> list[Person]:
 
 def main() -> int:
     args = Cli.parse()
+    Notify.init("Birthdaysay")
 
     contacts = get_contacts(args.contacts_file)
 
@@ -72,14 +78,24 @@ def main() -> int:
             next_birthday = next_birthday.replace(year=date.today().year + 1)
 
         if next_birthday == date.today():
-            print(f"It's {c['name']}'s birtday today!")
+            notification = Notify.Notification.new(
+                f"It's {c['name']}'s birtday today!",
+            )
+            notification.set_urgency(Notify.Urgency.CRITICAL)
+            notification.show()
 
         elif (next_birthday - date.today()).days == 1:
-            print("It's {c['name']}'s birthday tomorrow")
+            notification = Notify.Notification.new(
+                "It's {c['name']}'s birthday tomorrow"
+            )
+            notification.show()
 
         elif (next_birthday - date.today()).days in [6, 7]:
             print_birtday = date.strftime(next_birthday, "%B %d")
-            print(f"It's {c['name']}'s birthday on {print_birtday}")
+            notification = Notify.Notification.new(
+                f"It's {c['name']}'s birthday on {print_birtday}"
+            )
+            notification.show()
 
     return 0
 
