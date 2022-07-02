@@ -109,6 +109,13 @@ def main() -> int:
             )
             notification.show()
 
+        elif (next_birthday - date.today()).days in [5, 4, 3, 2] and args.everyday:
+            notification = Notify.Notification.new(
+                f"It's {c['name']}'s birthday on {print_birthday}"
+            )
+            notification.set_urgency(Notify.Urgency.LOW)
+            notification.show()
+
     if args.all:
         birthdays = {key: birthdays[key] for key in sorted(birthdays.keys())}
         for p in birthdays.values():

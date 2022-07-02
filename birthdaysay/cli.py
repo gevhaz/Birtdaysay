@@ -26,4 +26,13 @@ class Cli:
                  "notifications",
         )
 
+        parser.add_argument(
+            "-e",
+            "--everyday",
+            action="store_true",
+            dest="everyday",
+            required=False,
+            help="Show notifications everyday the week before a birthay",
+        )
+
         return parser.parse_args()
