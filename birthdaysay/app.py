@@ -99,7 +99,7 @@ def main() -> int:
 
         elif (next_birthday - date.today()).days == 1:
             notification = Notify.Notification.new(
-                "It's {c['name']}'s birthday tomorrow"
+                f"It's {c['name']}'s birthday tomorrow"
             )
             notification.show()
 
