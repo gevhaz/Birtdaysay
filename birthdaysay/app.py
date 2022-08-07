@@ -81,6 +81,7 @@ def main() -> int:
             next_birthday = next_birthday.replace(year=date.today().year + 1)
 
         print_birthday = date.strftime(next_birthday, "%B %d")
+        next_age = int(next_birthday.year - c["birthday"].year)
 
         if args.all:
             days_to_next = (next_birthday - date.today()).days
@@ -92,26 +93,28 @@ def main() -> int:
 
         elif next_birthday == date.today():
             notification = Notify.Notification.new(
-                f"It's {c['name']}'s birthday today!",
+                f"It's {c['name']}'s birthday today! They'll turn {next_age} 🎂",
             )
             notification.set_urgency(Notify.Urgency.CRITICAL)
             notification.show()
 
         elif (next_birthday - date.today()).days == 1:
             notification = Notify.Notification.new(
-                f"It's {c['name']}'s birthday tomorrow"
+                f"It's {c['name']}'s birthday tomorrow. They'll turn {next_age} 🎂"
             )
             notification.show()
 
         elif (next_birthday - date.today()).days in [6, 7]:
             notification = Notify.Notification.new(
-                f"It's {c['name']}'s birthday on {print_birthday}"
+                f"It's {c['name']}'s birthday on {print_birthday}. "
+                f"They'll turn {next_age} 🎂"
             )
             notification.show()
 
         elif (next_birthday - date.today()).days in [5, 4, 3, 2] and args.everyday:
             notification = Notify.Notification.new(
-                f"It's {c['name']}'s birthday on {print_birthday}"
+                f"It's {c['name']}'s birthday on {print_birthday}. "
+                f"They'll turn {next_age} 🎂"
             )
             notification.set_urgency(Notify.Urgency.LOW)
             notification.show()
