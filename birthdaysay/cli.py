@@ -1,10 +1,18 @@
+"""This file handles the parsing of arguments."""
 import argparse
 from argparse import Namespace
 
 
 class Cli:
+    """Cli objects are used to parse the arguments/flags from CLI.
+
+    Objects of this class parse the arguments given on the command line
+    when running the app.
+    """
+
     @staticmethod
     def parse() -> Namespace:
+        """Parse arguments and return as Namespace object."""
         parser = argparse.ArgumentParser()
 
         parser.add_argument(
