@@ -7,10 +7,10 @@ import gi
 
 gi.require_version("Notify", "0.7")
 
-from gi.repository import Notify
-from vobject.base import ParseError, readComponents
+from gi.repository import Notify  # noqa: E402
+from vobject.base import ParseError, readComponents  # noqa: E402
 
-from birthdaysay.cli import Cli
+from birthdaysay.cli import Cli  # noqa: E402
 
 
 class Person(TypedDict):
