@@ -30,8 +30,10 @@ class Cli:
             action="store_true",
             dest="all",
             required=False,
-            help="Print time until everyone's birthday instead of showing desktop "
-                 "notifications",
+            help=(
+                "Print time until everyone's birthday instead of showing desktop "
+                "notifications"
+            ),
         )
 
         parser.add_argument(
