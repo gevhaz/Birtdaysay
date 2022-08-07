@@ -1,3 +1,4 @@
+"""Main file for the app the executions starts."""
 import sys
 from datetime import date, datetime
 from typing import TypedDict
@@ -13,11 +14,14 @@ from birthdaysay.cli import Cli
 
 
 class Person(TypedDict):
+    """Typed dictionary for name and birthday of people."""
+
     name: str
     birthday: date
 
 
 def get_contacts(contacts_file: str) -> list[Person]:
+    """Read contacts file and return list of people."""
     try:
         with open(contacts_file, "r") as f:
             contacts_data = f.read()
@@ -67,6 +71,7 @@ def get_contacts(contacts_file: str) -> list[Person]:
 
 
 def main() -> int:
+    """Execute main logic of the app."""
     args = Cli.parse()
     Notify.init("Birthdaysay")
 
