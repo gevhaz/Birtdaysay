@@ -40,15 +40,15 @@ def get_contacts(contacts_file: str) -> list[Person]:
             birthday: str | None = None
 
             if "nickname" in contact.contents:
-                name = str(contact.contents["nickname"][0].value)  # type: ignore
+                name = str(contact.contents["nickname"][0].value)
             elif "n" in contact.contents:
-                name = str(contact.contents["n"][0].value)  # type: ignore
+                name = str(contact.contents["n"][0].value)
             else:
                 contact = next(contact_components, None)
                 continue
 
             if "bday" in contact.contents:
-                birthday = str(contact.contents["bday"][0].value)  # type: ignore
+                birthday = str(contact.contents["bday"][0].value)
             else:
                 contact = next(contact_components, None)
                 continue
