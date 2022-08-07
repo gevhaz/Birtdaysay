@@ -11,6 +11,12 @@ PyGObject = "^3.42.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+flake8-docstrings = "^1.6.0"
+black = "^22.6.0"
+mypy = "^0.971"
+isort = "^5.10.1"
+flake8 = "^5.0.4"
+colorama = "^0.4.5"
 
 [tool.poetry.scripts]
 birthdaysay = "birthdaysay.app:main"
